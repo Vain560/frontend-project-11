@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RSS Aggregator</title>
+  <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <h1>RSS Aggregator</h1>
+    <form id="rss-form">
+      <div class="mb-3">
+        <label for="rss-url" class="form-label">RSS URL</label>
+        <input type="text" class="form-control" id="rss-url" placeholder="Enter RSS URL">
+      </div>
+      <button type="submit" class="btn btn-primary">Add RSS Feed</button>
+    </form>
+    <div id="rss-feeds"></div>
+  </div>
+  <script src="bundle.js"></script>
+</body>
+</html>
+
