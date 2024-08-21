@@ -4,12 +4,12 @@
 [![CI](https://github.com/Vain560/frontend-project-11/actions/workflows/ci.yml/badge.svg)](https://github.com/Vain560/frontend-project-11/actions/workflows/ci.yml)
 
 
-#RSS Aggregator
+# RSS Aggregator
 
-##Description
+## Description
 RSS Aggregator is a web application that allows users to add RSS feeds, view news and receive updates from various sources. The application has a simple and intuitive interface.
 
-###install and serve
+### install and serve
 ```
 git clone https://github.com/Vain560/frontend-project-11
 
@@ -20,7 +20,7 @@ make build
 make develop
 ```
 
-###Example of work
+### Example of work
 
 https://frontend-project-11-peach-seven.vercel.app/
 
