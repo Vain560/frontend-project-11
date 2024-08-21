@@ -1,7 +1,8 @@
-const handleProcessState = (elements, processState, errorMessage) => {
+const updateUI = (elements, state, i18nInstance) => {
   const {
     form, fields, submitButton, feedbackElement,
   } = elements;
+  const { processState, error } = state.form;
 
   const resetUI = () => {
     submitButton.disabled = false;
@@ -16,14 +17,14 @@ const handleProcessState = (elements, processState, errorMessage) => {
       form.reset();
       fields.url.focus();
       feedbackElement.classList.add('text-success');
-      feedbackElement.textContent = 'done';
+      feedbackElement.textContent = i18nInstance.t('urlLoadedSuccessfully');
       break;
 
     case 'error':
       resetUI();
       fields.url.classList.add('is-invalid');
       feedbackElement.classList.add('text-danger');
-      feedbackElement.textContent = errorMessage || 'Unknown error';
+      feedbackElement.textContent = i18nInstance.t(error);
       break;
 
     case 'sending':
@@ -39,9 +40,9 @@ const handleProcessState = (elements, processState, errorMessage) => {
   }
 };
 
-const render = (elements, initialState) => (path, value) => {
+const render = (elements, initialState, i18nInstance) => (path) => {
   if (path === 'form.processState') {
-    handleProcessState(elements, value, initialState.form.error);
+    updateUI(elements, initialState, i18nInstance);
   }
 };
 

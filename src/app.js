@@ -1,11 +1,14 @@
 import 'bootstrap';
+import i18n from 'i18next';
 import * as yup from 'yup';
 import onChange from 'on-change';
+import uniqueId from 'lodash.uniqueid';
+import resources from './locales/index.js';
 import render from './view.js';
 
-// Валидация URL
+// Асинхронная валидация URL
 const validateUrl = async (url, urlsList) => {
-  const urlSchema = yup.string().url().nullable().notOneOf(urlsList, 'URL is duplicate');
+  const urlSchema = yup.string().url('invalidUrlFormat').required('urlIsRequired').notOneOf(urlsList, 'urlIsDuplicate');
   try {
     await urlSchema.validate(url, { abortEarly: false });
     return null;
@@ -14,8 +17,16 @@ const validateUrl = async (url, urlsList) => {
   }
 };
 
-// Инициализация приложения
-const app = () => {
+// Основная функция приложения
+const app = async () => {
+  const defaultLanguage = 'ru';
+  const i18nInstance = i18n.createInstance();
+  await i18nInstance.init({
+    lng: defaultLanguage,
+    debug: false,
+    resources,
+  });
+
   const elements = {
     form: document.querySelector('.rss-form'),
     fields: {
@@ -23,6 +34,8 @@ const app = () => {
     },
     feedbackElement: document.querySelector('p.feedback'),
     submitButton: document.querySelector('button[type="submit"]'),
+    postsContainer: document.querySelector('.posts'),
+    feedsContainer: document.querySelector('.feeds'),
   };
 
   const initialState = {
@@ -35,29 +48,31 @@ const app = () => {
     },
   };
 
-  const state = onChange(initialState, render(elements, initialState));
+  const state = onChange(initialState, render(elements, initialState, i18nInstance));
 
-  const handleSubmit = async (e) => {
+  elements.form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    const url = formData.get('url');
-
     state.form.processState = 'sending';
     state.form.processError = null;
 
-    const error = await validateUrl(url, state.feeds);
-    state.form.error = error;
+    const formData = new FormData(e.target);
+    const url = formData.get('url');
+    const urlsList = state.feeds.map((feed) => feed.url);
 
+    const error = await validateUrl(url, urlsList);
     if (error) {
+      state.form.error = error;
       state.form.processState = 'error';
-      return;
+    } else {
+      state.feeds.push({ id: uniqueId(), url });
+      state.form.processState = 'sent';
     }
+  });
 
-    state.feeds.push(url);
-    state.form.processState = 'sent';
-  };
-
-  elements.form.addEventListener('submit', handleSubmit);
+  elements.postsContainer.addEventListener('click', (e) => {
+    e.preventDefault();
+    // Обработка кликов: добавьте вашу логику здесь
+  });
 };
 
 export default app;
