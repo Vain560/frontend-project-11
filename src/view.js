@@ -1,41 +1,84 @@
+const setButtonState = (submitButton, isDisabled) => {
+  submitButton.disabled = isDisabled;
+};
+
+const setFeedbackClass = (feedbackElement, state) => {
+  const isError = state === 'error';
+  feedbackElement.classList.toggle('text-danger', isError);
+  feedbackElement.classList.toggle('text-success', !isError);
+};
+
+const setFeedbackText = (feedbackElement, text) => {
+  feedbackElement.textContent = text;
+};
+
 const updateProcessState = (elements, state, i18nInstance) => {
   const {
     form, fields, submitButton, feedbackElement,
   } = elements;
 
-  switch (state.form.processState) {
+  const { processState } = state.form;
+
+  switch (processState) {
     case 'sent':
-      submitButton.disabled = false;
+      setButtonState(submitButton, false);
       form.reset();
       fields.url.classList.remove('is-invalid');
-      feedbackElement.classList.remove('text-danger');
-      feedbackElement.classList.add('text-success');
-      feedbackElement.textContent = i18nInstance.t('urlLoadedSuccessfully');
+      setFeedbackClass(feedbackElement, 'sent');
+      setFeedbackText(feedbackElement, i18nInstance.t('urlLoadedSuccessfully'));
       break;
     case 'error':
-      submitButton.disabled = false;
+      setButtonState(submitButton, false);
       fields.url.classList.add('is-invalid');
-      feedbackElement.classList.remove('text-success');
-      feedbackElement.classList.add('text-danger');
-      feedbackElement.textContent = i18nInstance.t(state.form.error);
+      setFeedbackClass(feedbackElement, 'error');
+      setFeedbackText(feedbackElement, i18nInstance.t(state.form.error));
       break;
     case 'sending':
-      submitButton.disabled = true;
+      setButtonState(submitButton, true);
       break;
     case 'filling':
-      submitButton.disabled = false;
+      setButtonState(submitButton, false);
       break;
     default:
-      throw new Error(`Unknown process state: ${state.form.processState}`);
+      throw new Error(`Unknown process state: ${processState}`);
   }
+};
+
+const createPostsTitle = (i18nInstance) => {
+  const postsTitle = document.createElement('h2');
+  postsTitle.textContent = i18nInstance.t('postsTitle');
+  return postsTitle;
+};
+
+const createPostItem = (post, uiState, i18nInstance) => {
+  const postItem = document.createElement('li');
+  postItem.className = 'list-group-item d-flex justify-content-between align-items-start border-0 border-end-0';
+
+  const postLink = document.createElement('a');
+  postLink.href = post.link;
+  postLink.textContent = post.title;
+  postLink.className = uiState.clickedIds.has(post.id) ? 'fw-normal link-secondary' : 'fw-bold';
+  postLink.setAttribute('data-id', post.id);
+  postLink.setAttribute('rel', 'noopener noreferrer');
+  postLink.setAttribute('target', '_blank');
+
+  const viewButton = document.createElement('button');
+  viewButton.type = 'button';
+  viewButton.className = 'btn btn-outline-primary btn-sm';
+  viewButton.textContent = i18nInstance.t('view');
+  viewButton.setAttribute('data-id', post.id);
+  viewButton.setAttribute('data-bs-toggle', 'modal');
+  viewButton.setAttribute('data-bs-target', '#modal');
+
+  postItem.append(postLink, viewButton);
+  return postItem;
 };
 
 const renderPosts = (elements, state, i18nInstance) => {
   const { postsContainer } = elements;
   postsContainer.innerHTML = '';
 
-  const postsTitle = document.createElement('h2');
-  postsTitle.textContent = i18nInstance.t('postsTitle');
+  const postsTitle = createPostsTitle(i18nInstance);
   postsContainer.append(postsTitle);
 
   const postList = document.createElement('ul');
@@ -43,26 +86,7 @@ const renderPosts = (elements, state, i18nInstance) => {
   postsContainer.append(postList);
 
   state.posts.forEach((post) => {
-    const postItem = document.createElement('li');
-    postItem.className = 'list-group-item d-flex justify-content-between align-items-start border-0 border-end-0';
-
-    const postLink = document.createElement('a');
-    postLink.href = post.link;
-    postLink.textContent = post.title;
-    postLink.className = state.uiState.clickedIds.has(post.id) ? 'fw-normal link-secondary' : 'fw-bold';
-    postLink.setAttribute('data-id', post.id);
-    postLink.setAttribute('rel', 'noopener noreferrer');
-    postLink.setAttribute('target', '_blank');
-
-    const viewButton = document.createElement('button');
-    viewButton.type = 'button';
-    viewButton.className = 'btn btn-outline-primary btn-sm';
-    viewButton.textContent = i18nInstance.t('view');
-    viewButton.setAttribute('data-id', post.id);
-    viewButton.setAttribute('data-bs-toggle', 'modal');
-    viewButton.setAttribute('data-bs-target', '#modal');
-
-    postItem.append(postLink, viewButton);
+    const postItem = createPostItem(post, state.uiState, i18nInstance);
     postList.append(postItem);
   });
 };
