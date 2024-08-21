@@ -2,22 +2,69 @@ import 'bootstrap';
 import i18n from 'i18next';
 import * as yup from 'yup';
 import onChange from 'on-change';
-import uniqueId from 'lodash.uniqueid';
+import axios from 'axios';
+import _ from 'lodash';
 import resources from './locales/index.js';
 import render from './view.js';
 
-// Асинхронная валидация URL
-const validateUrl = async (url, urlsList) => {
-  const urlSchema = yup.string().url('invalidUrlFormat').required('urlIsRequired').notOneOf(urlsList, 'urlIsDuplicate');
+const buildProxyUrl = (url) => {
+  const proxy = 'https://allorigins.hexlet.app/get?disableCache=true&url=';
+  const encodedUrl = encodeURIComponent(url);
+  return `${proxy}${encodedUrl}`;
+};
+
+const parseRSS = (xml) => {
+  const parser = new DOMParser();
+  const xmlDoc = parser.parseFromString(xml, 'text/xml');
+
+  const title = xmlDoc.querySelector('title').textContent;
+  const description = xmlDoc.querySelector('description').textContent;
+  const link = xmlDoc.querySelector('link').textContent;
+
+  const posts = Array.from(xmlDoc.querySelectorAll('item')).map((post) => ({
+    title: post.querySelector('title').textContent,
+    link: post.querySelector('link').textContent,
+    description: post.querySelector('description').textContent,
+  }));
+
+  return {
+    title, description, link, posts,
+  };
+};
+
+const loadRss = async (url, state) => {
+  const proxyUrl = buildProxyUrl(url);
   try {
-    await urlSchema.validate(url, { abortEarly: false });
-    return null;
+    const response = await axios.get(proxyUrl);
+    if (!response.data.contents) {
+      throw new Error('urlDownloadError');
+    }
+    const parsedContent = parseRSS(response.data.contents);
+    const {
+      description, title, link, posts,
+    } = parsedContent;
+
+    const id = _.uniqueId();
+    state.feeds.push({
+      id, url, description, title, link,
+    });
+
+    const postsToAdd = posts.map((post) => ({ id, ...post }));
+    state.posts = _.unionWith(state.posts, postsToAdd, _.isEqual);
+
+    state.form.error = null;
+    state.form.processState = 'sent';
   } catch (error) {
-    return error.message;
+    state.form.error = error.code === 'ERR_NETWORK' ? 'networkError' : 'urlDownloadError';
+    state.form.processState = 'error';
   }
 };
 
-// Основная функция приложения
+const validateUrl = async (url, urlsList) => {
+  const urlSchema = yup.string().url('invalidUrlFormat').required('urlIsRequired').notOneOf(urlsList, 'urlIsDuplicate');
+  return urlSchema.validate(url, { abortEarly: false });
+};
+
 const app = async () => {
   const defaultLanguage = 'ru';
   const i18nInstance = i18n.createInstance();
@@ -42,9 +89,8 @@ const app = async () => {
     feeds: [],
     posts: [],
     form: {
-      processState: 'filling',
-      processError: null,
       error: null,
+      processState: 'filling',
     },
   };
 
@@ -52,26 +98,25 @@ const app = async () => {
 
   elements.form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    state.form.error = null;
     state.form.processState = 'sending';
-    state.form.processError = null;
 
     const formData = new FormData(e.target);
     const url = formData.get('url');
     const urlsList = state.feeds.map((feed) => feed.url);
 
-    const error = await validateUrl(url, urlsList);
-    if (error) {
-      state.form.error = error;
+    try {
+      await validateUrl(url, urlsList);
+      await loadRss(url, state);
+    } catch (error) {
+      state.form.error = error.message;
       state.form.processState = 'error';
-    } else {
-      state.feeds.push({ id: uniqueId(), url });
-      state.form.processState = 'sent';
     }
   });
 
   elements.postsContainer.addEventListener('click', (e) => {
     e.preventDefault();
-    // Обработка кликов: добавьте вашу логику здесь
+    // Обработка кликов по постам, если это необходимо
   });
 };
 
