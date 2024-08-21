@@ -2,9 +2,6 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 export default {
   mode: process.env.NODE_ENV || 'development',
-  output: {
-    clean: true,
-  },
   module: {
     rules: [
       {
@@ -34,7 +31,10 @@ export default {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './index.html',
+      template: 'index.html',
     }),
   ],
+  output: {
+    clean: true,
+  },
 };

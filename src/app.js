@@ -135,7 +135,7 @@ const app = async () => {
     e.preventDefault();
     state.form.error = null;
     state.form.processState = 'sending';
-    
+
     const url = new FormData(e.target).get('url');
     const urlsList = state.feeds.map((feed) => feed.url);
 

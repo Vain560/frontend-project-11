@@ -34,6 +34,10 @@ const renderPosts = (elements, state, i18nInstance) => {
   const { postsContainer } = elements;
   postsContainer.innerHTML = '';
 
+  const postsTitle = document.createElement('h2');
+  postsTitle.textContent = i18nInstance.t('postsTitle');
+  postsContainer.append(postsTitle);
+
   const postList = document.createElement('ul');
   postList.className = 'list-group border-0 rounded-0';
   postsContainer.append(postList);
@@ -61,9 +65,15 @@ const renderPosts = (elements, state, i18nInstance) => {
     postItem.append(postLink, viewButton);
     postList.append(postItem);
   });
+};
 
+const renderFeeds = (elements, state, i18nInstance) => {
   const { feedsContainer } = elements;
   feedsContainer.innerHTML = '';
+
+  const feedsTitle = document.createElement('h2');
+  feedsTitle.textContent = i18nInstance.t('feedsTitle');
+  feedsContainer.append(feedsTitle);
 
   const feedList = document.createElement('ul');
   feedList.className = 'list-group border-0 rounded-0';
@@ -105,6 +115,9 @@ const render = (elements, state, i18nInstance) => (path) => {
       break;
     case 'posts':
       renderPosts(elements, state, i18nInstance);
+      break;
+    case 'feeds':
+      renderFeeds(elements, state, i18nInstance);
       break;
     case 'uiState.clickedDataId':
       updateModal(elements, state);

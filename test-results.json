@@ -1,0 +1,728 @@
+{
+  "config": {
+    "configFile": "/home/solodov/Hexlet/RSS_aggregator/frontend-project-11-main/playwright.config.js",
+    "rootDir": "/home/solodov/Hexlet/RSS_aggregator/frontend-project-11-main/tests",
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 6
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 15000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/home/solodov/Hexlet/RSS_aggregator/frontend-project-11-main/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "/home/solodov/Hexlet/RSS_aggregator/frontend-project-11-main/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/home/solodov/Hexlet/RSS_aggregator/frontend-project-11-main/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "/home/solodov/Hexlet/RSS_aggregator/frontend-project-11-main/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/home/solodov/Hexlet/RSS_aggregator/frontend-project-11-main/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "googlechrome",
+        "name": "googlechrome",
+        "testDir": "/home/solodov/Hexlet/RSS_aggregator/frontend-project-11-main/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "version": "1.46.1",
+    "workers": 6,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "app.test.js",
+      "file": "app.test.js",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "RSS Aggregator",
+          "file": "app.test.js",
+          "line": 4,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should load page with default locale",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "status": "passed",
+                      "duration": 3155,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-08-21T17:43:51.236Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "1bf87f04203cc5a3ff5e-d0a76b00f680b4e992e0",
+              "file": "app.test.js",
+              "line": 9,
+              "column": 3
+            },
+            {
+              "title": "should display feedback message for URL validation error",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "status": "passed",
+                      "duration": 3046,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-08-21T17:43:51.300Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "1bf87f04203cc5a3ff5e-974d86f370f31d279507",
+              "file": "app.test.js",
+              "line": 14,
+              "column": 3
+            },
+            {
+              "title": "should add valid RSS feed and display posts",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "status": "failed",
+                      "duration": 4148,
+                      "error": {
+                        "message": "Error: expect.toBeVisible: Error: strict mode violation: locator('ul.list-group') resolved to 2 elements:\n    1) <ul class=\"list-group border-0 rounded-0\">…</ul> aka getByText('Lorem ipsum 2024-08-21T17:43:00ZПросмотрLorem ipsum 2024-08-21T17:42:00Z')\n    2) <ul class=\"list-group border-0 rounded-0\">…</ul> aka locator('ul').filter({ hasText: 'Lorem ipsum feed for an' })\n\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('ul.list-group')\u001b[22m\n",
+                        "stack": "Error: expect.toBeVisible: Error: strict mode violation: locator('ul.list-group') resolved to 2 elements:\n    1) <ul class=\"list-group border-0 rounded-0\">…</ul> aka getByText('Lorem ipsum 2024-08-21T17:43:00ZПросмотрLorem ipsum 2024-08-21T17:42:00Z')\n    2) <ul class=\"list-group border-0 rounded-0\">…</ul> aka locator('ul').filter({ hasText: 'Lorem ipsum feed for an' })\n\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('ul.list-group')\u001b[22m\n\n    at /home/solodov/Hexlet/RSS_aggregator/frontend-project-11-main/tests/app.test.js:26:49",
+                        "location": {
+                          "file": "/home/solodov/Hexlet/RSS_aggregator/frontend-project-11-main/tests/app.test.js",
+                          "column": 49,
+                          "line": 26
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 24 |\u001b[39m\n \u001b[90m 25 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'p.feedback'\u001b[39m))\u001b[33m.\u001b[39mtoHaveText(\u001b[32m'RSS успешно загружен'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 26 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'ul.list-group'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                 \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 27 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 28 |\u001b[39m\n \u001b[90m 29 |\u001b[39m   test(\u001b[32m'should display modal with post details on click'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/home/solodov/Hexlet/RSS_aggregator/frontend-project-11-main/tests/app.test.js",
+                            "column": 49,
+                            "line": 26
+                          },
+                          "message": "Error: expect.toBeVisible: Error: strict mode violation: locator('ul.list-group') resolved to 2 elements:\n    1) <ul class=\"list-group border-0 rounded-0\">…</ul> aka getByText('Lorem ipsum 2024-08-21T17:43:00ZПросмотрLorem ipsum 2024-08-21T17:42:00Z')\n    2) <ul class=\"list-group border-0 rounded-0\">…</ul> aka locator('ul').filter({ hasText: 'Lorem ipsum feed for an' })\n\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('ul.list-group')\u001b[22m\n\n\n\u001b[0m \u001b[90m 24 |\u001b[39m\n \u001b[90m 25 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'p.feedback'\u001b[39m))\u001b[33m.\u001b[39mtoHaveText(\u001b[32m'RSS успешно загружен'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 26 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'ul.list-group'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                 \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 27 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 28 |\u001b[39m\n \u001b[90m 29 |\u001b[39m   test(\u001b[32m'should display modal with post details on click'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m\n\n\u001b[2m    at /home/solodov/Hexlet/RSS_aggregator/frontend-project-11-main/tests/app.test.js:26:49\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-08-21T17:43:51.392Z",
+                      "attachments": [],
+                      "errorLocation": {
+                        "file": "/home/solodov/Hexlet/RSS_aggregator/frontend-project-11-main/tests/app.test.js",
+                        "column": 49,
+                        "line": 26
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "1bf87f04203cc5a3ff5e-a49b245973be66ec29b4",
+              "file": "app.test.js",
+              "line": 20,
+              "column": 3
+            },
+            {
+              "title": "should display modal with post details on click",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "status": "passed",
+                      "duration": 4313,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-08-21T17:43:51.401Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "1bf87f04203cc5a3ff5e-13fddc7c4ad3dd0a99eb",
+              "file": "app.test.js",
+              "line": 29,
+              "column": 3
+            },
+            {
+              "title": "should handle network error correctly",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "status": "failed",
+                      "duration": 8016,
+                      "error": {
+                        "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator('p.feedback')\nExpected string: \u001b[32m\"Ошибка сети\"\u001b[39m\nReceived string: \u001b[31m\"Ресурс не содержит валидный RSS\"\u001b[39m\nCall log:\n  \u001b[2m- expect.toHaveText with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('p.feedback')\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\"></p>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\"></p>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\"></p>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\"></p>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\"></p>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\"></p>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\"></p>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\">Ресурс не содержит валидный RSS</p>\u001b[22m\n\u001b[2m  -   unexpected value \"Ресурс не содержит валидный RSS\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\">Ресурс не содержит валидный RSS</p>\u001b[22m\n\u001b[2m  -   unexpected value \"Ресурс не содержит валидный RSS\"\u001b[22m\n",
+                        "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator('p.feedback')\nExpected string: \u001b[32m\"Ошибка сети\"\u001b[39m\nReceived string: \u001b[31m\"Ресурс не содержит валидный RSS\"\u001b[39m\nCall log:\n  \u001b[2m- expect.toHaveText with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('p.feedback')\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\"></p>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\"></p>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\"></p>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\"></p>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\"></p>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\"></p>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\"></p>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\">Ресурс не содержит валидный RSS</p>\u001b[22m\n\u001b[2m  -   unexpected value \"Ресурс не содержит валидный RSS\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\">Ресурс не содержит валидный RSS</p>\u001b[22m\n\u001b[2m  -   unexpected value \"Ресурс не содержит валидный RSS\"\u001b[22m\n\n    at /home/solodov/Hexlet/RSS_aggregator/frontend-project-11-main/tests/app.test.js:43:46",
+                        "location": {
+                          "file": "/home/solodov/Hexlet/RSS_aggregator/frontend-project-11-main/tests/app.test.js",
+                          "column": 46,
+                          "line": 43
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 41 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mfill(\u001b[32m'input[name=\"url\"]'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'https://invalid.url'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 42 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mclick(\u001b[32m'button[type=\"submit\"]'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 43 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'p.feedback'\u001b[39m))\u001b[33m.\u001b[39mtoHaveText(\u001b[32m'Ошибка сети'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 44 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 45 |\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 46 |\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/home/solodov/Hexlet/RSS_aggregator/frontend-project-11-main/tests/app.test.js",
+                            "column": 46,
+                            "line": 43
+                          },
+                          "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator('p.feedback')\nExpected string: \u001b[32m\"Ошибка сети\"\u001b[39m\nReceived string: \u001b[31m\"Ресурс не содержит валидный RSS\"\u001b[39m\nCall log:\n  \u001b[2m- expect.toHaveText with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('p.feedback')\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\"></p>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\"></p>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\"></p>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\"></p>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\"></p>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\"></p>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\"></p>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\">Ресурс не содержит валидный RSS</p>\u001b[22m\n\u001b[2m  -   unexpected value \"Ресурс не содержит валидный RSS\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\">Ресурс не содержит валидный RSS</p>\u001b[22m\n\u001b[2m  -   unexpected value \"Ресурс не содержит валидный RSS\"\u001b[22m\n\n\n\u001b[0m \u001b[90m 41 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mfill(\u001b[32m'input[name=\"url\"]'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'https://invalid.url'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 42 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mclick(\u001b[32m'button[type=\"submit\"]'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 43 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'p.feedback'\u001b[39m))\u001b[33m.\u001b[39mtoHaveText(\u001b[32m'Ошибка сети'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 44 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 45 |\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 46 |\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/solodov/Hexlet/RSS_aggregator/frontend-project-11-main/tests/app.test.js:43:46\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-08-21T17:43:50.775Z",
+                      "attachments": [],
+                      "errorLocation": {
+                        "file": "/home/solodov/Hexlet/RSS_aggregator/frontend-project-11-main/tests/app.test.js",
+                        "column": 46,
+                        "line": 43
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "1bf87f04203cc5a3ff5e-5c2b58dddfce41dedcee",
+              "file": "app.test.js",
+              "line": 40,
+              "column": 3
+            },
+            {
+              "title": "should load page with default locale",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 5,
+                      "status": "failed",
+                      "duration": 40,
+                      "error": {
+                        "message": "Error: browserType.launch: \n╔══════════════════════════════════════════════════════╗\n║ Host system is missing dependencies to run browsers. ║\n║ Missing libraries:                                   ║\n║     libicudata.so.70                                 ║\n║     libicui18n.so.70                                 ║\n║     libicuuc.so.70                                   ║\n║     libvpx.so.7                                      ║\n║     libgstcodecparsers-1.0.so.0                      ║\n╚══════════════════════════════════════════════════════╝",
+                        "stack": "Error: browserType.launch: \n╔══════════════════════════════════════════════════════╗\n║ Host system is missing dependencies to run browsers. ║\n║ Missing libraries:                                   ║\n║     libicudata.so.70                                 ║\n║     libicui18n.so.70                                 ║\n║     libicuuc.so.70                                   ║\n║     libvpx.so.7                                      ║\n║     libgstcodecparsers-1.0.so.0                      ║\n╚══════════════════════════════════════════════════════╝"
+                      },
+                      "errors": [
+                        {
+                          "message": "Error: browserType.launch: \n╔══════════════════════════════════════════════════════╗\n║ Host system is missing dependencies to run browsers. ║\n║ Missing libraries:                                   ║\n║     libicudata.so.70                                 ║\n║     libicui18n.so.70                                 ║\n║     libicuuc.so.70                                   ║\n║     libvpx.so.7                                      ║\n║     libgstcodecparsers-1.0.so.0                      ║\n╚══════════════════════════════════════════════════════╝"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-08-21T17:43:51.117Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "1bf87f04203cc5a3ff5e-d2727b5ee1df7f21b8c8",
+              "file": "app.test.js",
+              "line": 9,
+              "column": 3
+            },
+            {
+              "title": "should display feedback message for URL validation error",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 6,
+                      "status": "failed",
+                      "duration": 38,
+                      "error": {
+                        "message": "Error: browserType.launch: \n╔══════════════════════════════════════════════════════╗\n║ Host system is missing dependencies to run browsers. ║\n║ Missing libraries:                                   ║\n║     libicudata.so.70                                 ║\n║     libicui18n.so.70                                 ║\n║     libicuuc.so.70                                   ║\n║     libvpx.so.7                                      ║\n║     libgstcodecparsers-1.0.so.0                      ║\n╚══════════════════════════════════════════════════════╝",
+                        "stack": "Error: browserType.launch: \n╔══════════════════════════════════════════════════════╗\n║ Host system is missing dependencies to run browsers. ║\n║ Missing libraries:                                   ║\n║     libicudata.so.70                                 ║\n║     libicui18n.so.70                                 ║\n║     libicuuc.so.70                                   ║\n║     libvpx.so.7                                      ║\n║     libgstcodecparsers-1.0.so.0                      ║\n╚══════════════════════════════════════════════════════╝"
+                      },
+                      "errors": [
+                        {
+                          "message": "Error: browserType.launch: \n╔══════════════════════════════════════════════════════╗\n║ Host system is missing dependencies to run browsers. ║\n║ Missing libraries:                                   ║\n║     libicudata.so.70                                 ║\n║     libicui18n.so.70                                 ║\n║     libicuuc.so.70                                   ║\n║     libvpx.so.7                                      ║\n║     libgstcodecparsers-1.0.so.0                      ║\n╚══════════════════════════════════════════════════════╝"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-08-21T17:43:53.851Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "1bf87f04203cc5a3ff5e-80dadbf57da9808f3a72",
+              "file": "app.test.js",
+              "line": 14,
+              "column": 3
+            },
+            {
+              "title": "should add valid RSS feed and display posts",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 7,
+                      "status": "failed",
+                      "duration": 28,
+                      "error": {
+                        "message": "Error: browserType.launch: \n╔══════════════════════════════════════════════════════╗\n║ Host system is missing dependencies to run browsers. ║\n║ Missing libraries:                                   ║\n║     libicudata.so.70                                 ║\n║     libicui18n.so.70                                 ║\n║     libicuuc.so.70                                   ║\n║     libvpx.so.7                                      ║\n║     libgstcodecparsers-1.0.so.0                      ║\n╚══════════════════════════════════════════════════════╝",
+                        "stack": "Error: browserType.launch: \n╔══════════════════════════════════════════════════════╗\n║ Host system is missing dependencies to run browsers. ║\n║ Missing libraries:                                   ║\n║     libicudata.so.70                                 ║\n║     libicui18n.so.70                                 ║\n║     libicuuc.so.70                                   ║\n║     libvpx.so.7                                      ║\n║     libgstcodecparsers-1.0.so.0                      ║\n╚══════════════════════════════════════════════════════╝"
+                      },
+                      "errors": [
+                        {
+                          "message": "Error: browserType.launch: \n╔══════════════════════════════════════════════════════╗\n║ Host system is missing dependencies to run browsers. ║\n║ Missing libraries:                                   ║\n║     libicudata.so.70                                 ║\n║     libicui18n.so.70                                 ║\n║     libicuuc.so.70                                   ║\n║     libvpx.so.7                                      ║\n║     libgstcodecparsers-1.0.so.0                      ║\n╚══════════════════════════════════════════════════════╝"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-08-21T17:43:56.285Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "1bf87f04203cc5a3ff5e-a86a337c1fc07616d632",
+              "file": "app.test.js",
+              "line": 20,
+              "column": 3
+            },
+            {
+              "title": "should display modal with post details on click",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 8,
+                      "status": "failed",
+                      "duration": 23,
+                      "error": {
+                        "message": "Error: browserType.launch: \n╔══════════════════════════════════════════════════════╗\n║ Host system is missing dependencies to run browsers. ║\n║ Missing libraries:                                   ║\n║     libicudata.so.70                                 ║\n║     libicui18n.so.70                                 ║\n║     libicuuc.so.70                                   ║\n║     libvpx.so.7                                      ║\n║     libgstcodecparsers-1.0.so.0                      ║\n╚══════════════════════════════════════════════════════╝",
+                        "stack": "Error: browserType.launch: \n╔══════════════════════════════════════════════════════╗\n║ Host system is missing dependencies to run browsers. ║\n║ Missing libraries:                                   ║\n║     libicudata.so.70                                 ║\n║     libicui18n.so.70                                 ║\n║     libicuuc.so.70                                   ║\n║     libvpx.so.7                                      ║\n║     libgstcodecparsers-1.0.so.0                      ║\n╚══════════════════════════════════════════════════════╝"
+                      },
+                      "errors": [
+                        {
+                          "message": "Error: browserType.launch: \n╔══════════════════════════════════════════════════════╗\n║ Host system is missing dependencies to run browsers. ║\n║ Missing libraries:                                   ║\n║     libicudata.so.70                                 ║\n║     libicui18n.so.70                                 ║\n║     libicuuc.so.70                                   ║\n║     libvpx.so.7                                      ║\n║     libgstcodecparsers-1.0.so.0                      ║\n╚══════════════════════════════════════════════════════╝"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-08-21T17:43:57.578Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "1bf87f04203cc5a3ff5e-37f7631b9b861194ba98",
+              "file": "app.test.js",
+              "line": 29,
+              "column": 3
+            },
+            {
+              "title": "should handle network error correctly",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 9,
+                      "status": "failed",
+                      "duration": 20,
+                      "error": {
+                        "message": "Error: browserType.launch: \n╔══════════════════════════════════════════════════════╗\n║ Host system is missing dependencies to run browsers. ║\n║ Missing libraries:                                   ║\n║     libicudata.so.70                                 ║\n║     libicui18n.so.70                                 ║\n║     libicuuc.so.70                                   ║\n║     libvpx.so.7                                      ║\n║     libgstcodecparsers-1.0.so.0                      ║\n╚══════════════════════════════════════════════════════╝",
+                        "stack": "Error: browserType.launch: \n╔══════════════════════════════════════════════════════╗\n║ Host system is missing dependencies to run browsers. ║\n║ Missing libraries:                                   ║\n║     libicudata.so.70                                 ║\n║     libicui18n.so.70                                 ║\n║     libicuuc.so.70                                   ║\n║     libvpx.so.7                                      ║\n║     libgstcodecparsers-1.0.so.0                      ║\n╚══════════════════════════════════════════════════════╝"
+                      },
+                      "errors": [
+                        {
+                          "message": "Error: browserType.launch: \n╔══════════════════════════════════════════════════════╗\n║ Host system is missing dependencies to run browsers. ║\n║ Missing libraries:                                   ║\n║     libicudata.so.70                                 ║\n║     libicui18n.so.70                                 ║\n║     libicuuc.so.70                                   ║\n║     libvpx.so.7                                      ║\n║     libgstcodecparsers-1.0.so.0                      ║\n╚══════════════════════════════════════════════════════╝"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-08-21T17:43:57.730Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "1bf87f04203cc5a3ff5e-cf046d6fe1625e9fee51",
+              "file": "app.test.js",
+              "line": 40,
+              "column": 3
+            },
+            {
+              "title": "should load page with default locale",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "googlechrome",
+                  "projectName": "googlechrome",
+                  "results": [
+                    {
+                      "workerIndex": 11,
+                      "status": "passed",
+                      "duration": 689,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-08-21T17:43:59.323Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "1bf87f04203cc5a3ff5e-71dbe6332e160502c2ea",
+              "file": "app.test.js",
+              "line": 9,
+              "column": 3
+            },
+            {
+              "title": "should display feedback message for URL validation error",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "googlechrome",
+                  "projectName": "googlechrome",
+                  "results": [
+                    {
+                      "workerIndex": 10,
+                      "status": "passed",
+                      "duration": 708,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-08-21T17:43:58.568Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "1bf87f04203cc5a3ff5e-988cde85b64a5aa4c729",
+              "file": "app.test.js",
+              "line": 14,
+              "column": 3
+            },
+            {
+              "title": "should add valid RSS feed and display posts",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "googlechrome",
+                  "projectName": "googlechrome",
+                  "results": [
+                    {
+                      "workerIndex": 12,
+                      "status": "failed",
+                      "duration": 1670,
+                      "error": {
+                        "message": "Error: expect.toBeVisible: Error: strict mode violation: locator('ul.list-group') resolved to 2 elements:\n    1) <ul class=\"list-group border-0 rounded-0\">…</ul> aka getByText('Lorem ipsum 2024-08-21T17:44:00ZПросмотрLorem ipsum 2024-08-21T17:43:00Z')\n    2) <ul class=\"list-group border-0 rounded-0\">…</ul> aka locator('ul').filter({ hasText: 'Lorem ipsum feed for an' })\n\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('ul.list-group')\u001b[22m\n",
+                        "stack": "Error: expect.toBeVisible: Error: strict mode violation: locator('ul.list-group') resolved to 2 elements:\n    1) <ul class=\"list-group border-0 rounded-0\">…</ul> aka getByText('Lorem ipsum 2024-08-21T17:44:00ZПросмотрLorem ipsum 2024-08-21T17:43:00Z')\n    2) <ul class=\"list-group border-0 rounded-0\">…</ul> aka locator('ul').filter({ hasText: 'Lorem ipsum feed for an' })\n\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('ul.list-group')\u001b[22m\n\n    at /home/solodov/Hexlet/RSS_aggregator/frontend-project-11-main/tests/app.test.js:26:49",
+                        "location": {
+                          "file": "/home/solodov/Hexlet/RSS_aggregator/frontend-project-11-main/tests/app.test.js",
+                          "column": 49,
+                          "line": 26
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 24 |\u001b[39m\n \u001b[90m 25 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'p.feedback'\u001b[39m))\u001b[33m.\u001b[39mtoHaveText(\u001b[32m'RSS успешно загружен'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 26 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'ul.list-group'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                 \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 27 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 28 |\u001b[39m\n \u001b[90m 29 |\u001b[39m   test(\u001b[32m'should display modal with post details on click'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/home/solodov/Hexlet/RSS_aggregator/frontend-project-11-main/tests/app.test.js",
+                            "column": 49,
+                            "line": 26
+                          },
+                          "message": "Error: expect.toBeVisible: Error: strict mode violation: locator('ul.list-group') resolved to 2 elements:\n    1) <ul class=\"list-group border-0 rounded-0\">…</ul> aka getByText('Lorem ipsum 2024-08-21T17:44:00ZПросмотрLorem ipsum 2024-08-21T17:43:00Z')\n    2) <ul class=\"list-group border-0 rounded-0\">…</ul> aka locator('ul').filter({ hasText: 'Lorem ipsum feed for an' })\n\nCall log:\n  \u001b[2m- expect.toBeVisible with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('ul.list-group')\u001b[22m\n\n\n\u001b[0m \u001b[90m 24 |\u001b[39m\n \u001b[90m 25 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'p.feedback'\u001b[39m))\u001b[33m.\u001b[39mtoHaveText(\u001b[32m'RSS успешно загружен'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 26 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'ul.list-group'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                 \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 27 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 28 |\u001b[39m\n \u001b[90m 29 |\u001b[39m   test(\u001b[32m'should display modal with post details on click'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m\n\n\u001b[2m    at /home/solodov/Hexlet/RSS_aggregator/frontend-project-11-main/tests/app.test.js:26:49\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-08-21T17:43:59.399Z",
+                      "attachments": [],
+                      "errorLocation": {
+                        "file": "/home/solodov/Hexlet/RSS_aggregator/frontend-project-11-main/tests/app.test.js",
+                        "column": 49,
+                        "line": 26
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "1bf87f04203cc5a3ff5e-6bc7d269bf2e1267a10b",
+              "file": "app.test.js",
+              "line": 20,
+              "column": 3
+            },
+            {
+              "title": "should display modal with post details on click",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "googlechrome",
+                  "projectName": "googlechrome",
+                  "results": [
+                    {
+                      "workerIndex": 13,
+                      "status": "passed",
+                      "duration": 2112,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-08-21T17:43:59.553Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "1bf87f04203cc5a3ff5e-be9c5be9926222707924",
+              "file": "app.test.js",
+              "line": 29,
+              "column": 3
+            },
+            {
+              "title": "should handle network error correctly",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "googlechrome",
+                  "projectName": "googlechrome",
+                  "results": [
+                    {
+                      "workerIndex": 14,
+                      "status": "failed",
+                      "duration": 5715,
+                      "error": {
+                        "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator('p.feedback')\nExpected string: \u001b[32m\"Ошибка сети\"\u001b[39m\nReceived string: \u001b[31m\"Ресурс не содержит валидный RSS\"\u001b[39m\nCall log:\n  \u001b[2m- expect.toHaveText with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('p.feedback')\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\"></p>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\"></p>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\"></p>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\"></p>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\"></p>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\"></p>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\"></p>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\">Ресурс не содержит валидный RSS</p>\u001b[22m\n\u001b[2m  -   unexpected value \"Ресурс не содержит валидный RSS\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\">Ресурс не содержит валидный RSS</p>\u001b[22m\n\u001b[2m  -   unexpected value \"Ресурс не содержит валидный RSS\"\u001b[22m\n",
+                        "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator('p.feedback')\nExpected string: \u001b[32m\"Ошибка сети\"\u001b[39m\nReceived string: \u001b[31m\"Ресурс не содержит валидный RSS\"\u001b[39m\nCall log:\n  \u001b[2m- expect.toHaveText with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('p.feedback')\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\"></p>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\"></p>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\"></p>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\"></p>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\"></p>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\"></p>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\"></p>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\">Ресурс не содержит валидный RSS</p>\u001b[22m\n\u001b[2m  -   unexpected value \"Ресурс не содержит валидный RSS\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\">Ресурс не содержит валидный RSS</p>\u001b[22m\n\u001b[2m  -   unexpected value \"Ресурс не содержит валидный RSS\"\u001b[22m\n\n    at /home/solodov/Hexlet/RSS_aggregator/frontend-project-11-main/tests/app.test.js:43:46",
+                        "location": {
+                          "file": "/home/solodov/Hexlet/RSS_aggregator/frontend-project-11-main/tests/app.test.js",
+                          "column": 46,
+                          "line": 43
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 41 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mfill(\u001b[32m'input[name=\"url\"]'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'https://invalid.url'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 42 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mclick(\u001b[32m'button[type=\"submit\"]'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 43 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'p.feedback'\u001b[39m))\u001b[33m.\u001b[39mtoHaveText(\u001b[32m'Ошибка сети'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 44 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 45 |\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 46 |\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/home/solodov/Hexlet/RSS_aggregator/frontend-project-11-main/tests/app.test.js",
+                            "column": 46,
+                            "line": 43
+                          },
+                          "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator('p.feedback')\nExpected string: \u001b[32m\"Ошибка сети\"\u001b[39m\nReceived string: \u001b[31m\"Ресурс не содержит валидный RSS\"\u001b[39m\nCall log:\n  \u001b[2m- expect.toHaveText with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('p.feedback')\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\"></p>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\"></p>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\"></p>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\"></p>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\"></p>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\"></p>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\"></p>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\">Ресурс не содержит валидный RSS</p>\u001b[22m\n\u001b[2m  -   unexpected value \"Ресурс не содержит валидный RSS\"\u001b[22m\n\u001b[2m  -   locator resolved to <p class=\"feedback m-0 position-absolute small text-danger\">Ресурс не содержит валидный RSS</p>\u001b[22m\n\u001b[2m  -   unexpected value \"Ресурс не содержит валидный RSS\"\u001b[22m\n\n\n\u001b[0m \u001b[90m 41 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mfill(\u001b[32m'input[name=\"url\"]'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'https://invalid.url'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 42 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mclick(\u001b[32m'button[type=\"submit\"]'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 43 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'p.feedback'\u001b[39m))\u001b[33m.\u001b[39mtoHaveText(\u001b[32m'Ошибка сети'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 44 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 45 |\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 46 |\u001b[39m\u001b[0m\n\n\u001b[2m    at /home/solodov/Hexlet/RSS_aggregator/frontend-project-11-main/tests/app.test.js:43:46\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-08-21T17:43:59.722Z",
+                      "attachments": [],
+                      "errorLocation": {
+                        "file": "/home/solodov/Hexlet/RSS_aggregator/frontend-project-11-main/tests/app.test.js",
+                        "column": 46,
+                        "line": 43
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "1bf87f04203cc5a3ff5e-857b90c7e85083c99567",
+              "file": "app.test.js",
+              "line": 40,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2024-08-21T17:43:49.053Z",
+    "duration": 16717.722999999998,
+    "expected": 6,
+    "skipped": 0,
+    "unexpected": 9,
+    "flaky": 0
+  }
+}
