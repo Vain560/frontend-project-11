@@ -1,140 +1,114 @@
-const handleProcessState = (elements, processState, error, i18nInstance) => {
+const updateProcessState = (elements, state, i18nInstance) => {
   const {
     form, fields, submitButton, feedbackElement,
   } = elements;
 
-  switch (processState) {
+  switch (state.form.processState) {
     case 'sent':
       submitButton.disabled = false;
       form.reset();
       fields.url.classList.remove('is-invalid');
-      fields.url.focus();
       feedbackElement.classList.remove('text-danger');
       feedbackElement.classList.add('text-success');
       feedbackElement.textContent = i18nInstance.t('urlLoadedSuccessfully');
       break;
-
     case 'error':
       submitButton.disabled = false;
       fields.url.classList.add('is-invalid');
       feedbackElement.classList.remove('text-success');
       feedbackElement.classList.add('text-danger');
-      feedbackElement.textContent = i18nInstance.t(error);
+      feedbackElement.textContent = i18nInstance.t(state.form.error);
       break;
-
     case 'sending':
       submitButton.disabled = true;
       break;
-
     case 'filling':
       submitButton.disabled = false;
       break;
-
     default:
-      throw new Error(`Unknown process state: ${processState}`);
+      throw new Error(`Unknown process state: ${state.form.processState}`);
   }
 };
 
-const renderPosts = (elements, posts, i18nInstance) => {
+const renderPosts = (elements, state, i18nInstance) => {
   const { postsContainer } = elements;
   postsContainer.innerHTML = '';
 
-  const cardPosts = document.createElement('div');
-  cardPosts.classList.add('card', 'border-0');
-  postsContainer.append(cardPosts);
+  const postList = document.createElement('ul');
+  postList.className = 'list-group border-0 rounded-0';
+  postsContainer.append(postList);
 
-  const cardPostsBody = document.createElement('div');
-  cardPostsBody.classList.add('card-body');
-  cardPosts.append(cardPostsBody);
+  state.posts.forEach((post) => {
+    const postItem = document.createElement('li');
+    postItem.className = 'list-group-item d-flex justify-content-between align-items-start border-0 border-end-0';
 
-  const cardPostsTitle = document.createElement('h2');
-  cardPostsTitle.classList.add('card-title', 'h4');
-  cardPostsTitle.textContent = i18nInstance.t('posts');
-  cardPostsBody.append(cardPostsTitle);
+    const postLink = document.createElement('a');
+    postLink.href = post.link;
+    postLink.textContent = post.title;
+    postLink.className = state.uiState.clickedIds.has(post.id) ? 'fw-normal link-secondary' : 'fw-bold';
+    postLink.setAttribute('data-id', post.id);
+    postLink.setAttribute('rel', 'noopener noreferrer');
+    postLink.setAttribute('target', '_blank');
 
-  const ulPosts = document.createElement('ul');
-  ulPosts.classList.add('list-group', 'border-0', 'rounded-0');
-  cardPosts.append(ulPosts);
+    const viewButton = document.createElement('button');
+    viewButton.type = 'button';
+    viewButton.className = 'btn btn-outline-primary btn-sm';
+    viewButton.textContent = i18nInstance.t('view');
+    viewButton.setAttribute('data-id', post.id);
+    viewButton.setAttribute('data-bs-toggle', 'modal');
+    viewButton.setAttribute('data-bs-target', '#modal');
 
-  const liPosts = posts.map((post) => {
-    const liPost = document.createElement('li');
-    liPost.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-start', 'border-0', 'border-end-0');
-
-    const aPost = document.createElement('a');
-    aPost.classList.add('fw-bold');
-    aPost.href = post.link;
-    aPost.rel = 'noopener noreferrer';
-    aPost.target = '_blank';
-    aPost.textContent = post.title;
-
-    const buttonPost = document.createElement('button');
-    buttonPost.type = 'button';
-    buttonPost.classList.add('btn', 'btn-outline-primary', 'btn-sm');
-    buttonPost.setAttribute('data-bs-toggle', 'modal');
-    buttonPost.setAttribute('data-bs-target', '#modal');
-    buttonPost.textContent = i18nInstance.t('view');
-
-    liPost.append(aPost, buttonPost);
-    return liPost;
+    postItem.append(postLink, viewButton);
+    postList.append(postItem);
   });
 
-  ulPosts.append(...liPosts);
-};
-
-const renderFeeds = (elements, feeds, i18nInstance) => {
   const { feedsContainer } = elements;
   feedsContainer.innerHTML = '';
 
-  const cardFeeds = document.createElement('div');
-  cardFeeds.classList.add('card', 'border-0');
-  feedsContainer.append(cardFeeds);
+  const feedList = document.createElement('ul');
+  feedList.className = 'list-group border-0 rounded-0';
+  feedsContainer.append(feedList);
 
-  const cardFeedsBody = document.createElement('div');
-  cardFeedsBody.classList.add('card-body');
-  cardFeeds.append(cardFeedsBody);
+  state.feeds.forEach((feed) => {
+    const feedItem = document.createElement('li');
+    feedItem.className = 'list-group-item border-0 border-end-0';
 
-  const cardFeedsTitle = document.createElement('h2');
-  cardFeedsTitle.classList.add('card-title', 'h4');
-  cardFeedsTitle.textContent = i18nInstance.t('feeds');
-  cardFeedsBody.append(cardFeedsTitle);
+    const feedTitle = document.createElement('h3');
+    feedTitle.className = 'h6 m-0';
+    feedTitle.textContent = feed.title;
 
-  const ulFeeds = document.createElement('ul');
-  ulFeeds.classList.add('list-group', 'border-0', 'rounded-0');
-  cardFeeds.append(ulFeeds);
+    const feedDescription = document.createElement('p');
+    feedDescription.className = 'm-0 small text-black-50';
+    feedDescription.textContent = feed.description;
 
-  const liFeeds = feeds.map((feed) => {
-    const liFeed = document.createElement('li');
-    liFeed.classList.add('list-group-item', 'border-0', 'border-end-0');
-
-    const h3Feed = document.createElement('h3');
-    h3Feed.classList.add('h6', 'm-0');
-    h3Feed.textContent = feed.title;
-
-    const pFeed = document.createElement('p');
-    pFeed.classList.add('m-0', 'small', 'text-black-50');
-    pFeed.textContent = feed.description;
-
-    liFeed.append(h3Feed, pFeed);
-    return liFeed;
+    feedItem.append(feedTitle, feedDescription);
+    feedList.append(feedItem);
   });
-
-  ulFeeds.append(...liFeeds);
 };
 
-const render = (elements, initialState, i18nInstance) => (path, value) => {
+const updateModal = (elements, state) => {
+  const { clickedDataId } = state.uiState;
+  const clickedPost = state.posts.find((post) => post.id === clickedDataId);
+
+  if (clickedPost) {
+    const { modalTitle, modalBody, modalLink } = elements.modal;
+    modalTitle.textContent = clickedPost.title;
+    modalBody.textContent = clickedPost.description;
+    modalLink.href = clickedPost.link;
+  }
+};
+
+const render = (elements, state, i18nInstance) => (path) => {
   switch (path) {
     case 'form.processState':
-      handleProcessState(elements, value, initialState.form.error, i18nInstance);
+      updateProcessState(elements, state, i18nInstance);
       break;
-
     case 'posts':
-      renderPosts(elements, value, i18nInstance);
+      renderPosts(elements, state, i18nInstance);
       break;
-
-    case 'feeds':
-      renderFeeds(elements, value, i18nInstance);
+    case 'uiState.clickedDataId':
+      updateModal(elements, state);
       break;
-
     default:
       break;
   }

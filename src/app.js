@@ -7,67 +7,101 @@ import _ from 'lodash';
 import resources from './locales/index.js';
 import render from './view.js';
 
-const buildProxyUrl = (url) => {
-  const proxy = 'https://allorigins.hexlet.app/get?disableCache=true&url=';
-  const encodedUrl = encodeURIComponent(url);
-  return `${proxy}${encodedUrl}`;
-};
+const PROXY_URL = 'https://allorigins.hexlet.app/get?disableCache=true&url=';
+
+const buildProxyUrl = (url) => `${PROXY_URL}${encodeURIComponent(url)}`;
 
 const parseRSS = (xml) => {
   const parser = new DOMParser();
   const xmlDoc = parser.parseFromString(xml, 'text/xml');
 
-  const title = xmlDoc.querySelector('title').textContent;
-  const description = xmlDoc.querySelector('description').textContent;
-  const link = xmlDoc.querySelector('link').textContent;
-
-  const posts = Array.from(xmlDoc.querySelectorAll('item')).map((post) => ({
-    title: post.querySelector('title').textContent,
-    link: post.querySelector('link').textContent,
-    description: post.querySelector('description').textContent,
-  }));
-
   return {
-    title, description, link, posts,
+    title: xmlDoc.querySelector('title')?.textContent || '',
+    link: xmlDoc.querySelector('link')?.textContent || '',
+    description: xmlDoc.querySelector('description')?.textContent || '',
+    posts: Array.from(xmlDoc.querySelectorAll('item')).map((item) => ({
+      title: item.querySelector('title')?.textContent || '',
+      link: item.querySelector('link')?.textContent || '',
+      description: item.querySelector('description')?.textContent || '',
+    })),
   };
 };
 
 const loadRss = async (url, state) => {
-  const proxyUrl = buildProxyUrl(url);
   try {
-    const response = await axios.get(proxyUrl);
-    if (!response.data.contents) {
-      throw new Error('urlDownloadError');
-    }
-    const parsedContent = parseRSS(response.data.contents);
-    const {
-      description, title, link, posts,
-    } = parsedContent;
+    const { data } = await axios.get(buildProxyUrl(url));
+    const { contents } = data;
 
-    const id = _.uniqueId();
+    if (!contents || data.status.http_code !== 200) {
+      throw new Error(`Failed to load RSS from ${url}`);
+    }
+
+    const parsedContent = parseRSS(contents);
+    const feedId = _.uniqueId();
+
     state.feeds.push({
-      id, url, description, title, link,
+      id: feedId,
+      url,
+      ...parsedContent,
     });
 
-    const postsToAdd = posts.map((post) => ({ id, ...post }));
-    state.posts = _.unionWith(state.posts, postsToAdd, _.isEqual);
+    const postsToAdd = parsedContent.posts.map((post) => ({
+      feedId,
+      id: _.uniqueId(),
+      ...post,
+    }));
+
+    state.posts = _.unionBy(state.posts, postsToAdd, (post) => `${post.feedId}-${post.title}-${post.link}`);
 
     state.form.error = null;
     state.form.processState = 'sent';
   } catch (error) {
-    state.form.error = error.code === 'ERR_NETWORK' ? 'networkError' : 'urlDownloadError';
+    state.form.error = error.message.includes('Failed to load') ? 'urlDownloadError' : 'networkError';
     state.form.processState = 'error';
   }
 };
 
-const validateUrl = async (url, urlsList) => {
-  const urlSchema = yup.string().url('invalidUrlFormat').required('urlIsRequired').notOneOf(urlsList, 'urlIsDuplicate');
-  return urlSchema.validate(url, { abortEarly: false });
+const updateRss = (state) => {
+  const fetchFeeds = async () => {
+    if (state.form.processState === 'sending') return;
+
+    await Promise.all(state.feeds.map(async (feed) => {
+      try {
+        const { data } = await axios.get(buildProxyUrl(feed.url));
+        const { contents } = data;
+
+        if (!contents || data.status.http_code !== 200) {
+          throw new Error(`Failed to load RSS from ${feed.url}`);
+        }
+
+        const parsedContent = parseRSS(contents);
+        const postsToAdd = parsedContent.posts.map((post) => ({
+          feedId: feed.id,
+          id: _.uniqueId(),
+          ...post,
+        }));
+
+        state.posts = _.unionBy(state.posts, postsToAdd, (post) => `${post.feedId}-${post.title}-${post.link}`);
+      } catch (error) {
+        console.error(error.message);
+      }
+    }));
+
+    setTimeout(fetchFeeds, 5000);
+  };
+
+  fetchFeeds();
+};
+
+const validateUrl = (url, urlsList) => {
+  const schema = yup.string().url('invalidUrlFormat').required('urlIsRequired').notOneOf(urlsList, 'urlIsDuplicate');
+  return schema.validate(url, { abortEarly: false });
 };
 
 const app = async () => {
   const defaultLanguage = 'ru';
   const i18nInstance = i18n.createInstance();
+
   await i18nInstance.init({
     lng: defaultLanguage,
     debug: false,
@@ -76,22 +110,23 @@ const app = async () => {
 
   const elements = {
     form: document.querySelector('.rss-form'),
-    fields: {
-      url: document.getElementById('url-input'),
-    },
+    fields: { url: document.getElementById('url-input') },
     feedbackElement: document.querySelector('p.feedback'),
     submitButton: document.querySelector('button[type="submit"]'),
     postsContainer: document.querySelector('.posts'),
     feedsContainer: document.querySelector('.feeds'),
+    modal: {
+      modalTitle: document.querySelector('.modal-title'),
+      modalBody: document.querySelector('.modal-body'),
+      modalLink: document.querySelector('.modal-footer > .full-article'),
+    },
   };
 
   const initialState = {
     feeds: [],
     posts: [],
-    form: {
-      error: null,
-      processState: 'filling',
-    },
+    form: { error: null, processState: 'filling' },
+    uiState: { clickedDataId: null, clickedIds: new Set() },
   };
 
   const state = onChange(initialState, render(elements, initialState, i18nInstance));
@@ -100,9 +135,8 @@ const app = async () => {
     e.preventDefault();
     state.form.error = null;
     state.form.processState = 'sending';
-
-    const formData = new FormData(e.target);
-    const url = formData.get('url');
+    
+    const url = new FormData(e.target).get('url');
     const urlsList = state.feeds.map((feed) => feed.url);
 
     try {
@@ -115,9 +149,14 @@ const app = async () => {
   });
 
   elements.postsContainer.addEventListener('click', (e) => {
-    e.preventDefault();
-    // Обработка кликов по постам, если это необходимо
+    const clickedDataId = e.target.getAttribute('data-id');
+    if (clickedDataId) {
+      state.uiState.clickedDataId = clickedDataId;
+      state.uiState.clickedIds.add(clickedDataId);
+    }
   });
+
+  updateRss(state);
 };
 
 export default app;
