@@ -129,6 +129,13 @@ const updateModal = (elements, state) => {
     modalTitle.textContent = clickedPost.title;
     modalBody.textContent = clickedPost.description;
     modalLink.href = clickedPost.link;
+
+    // Обновляем класс поста в зависимости от состояния UI
+    const postLink = document.querySelector(`a[data-id="${clickedDataId}"]`);
+    if (postLink) {
+      postLink.classList.remove('fw-bold');
+      postLink.classList.add('fw-normal');
+    }
   }
 };
 

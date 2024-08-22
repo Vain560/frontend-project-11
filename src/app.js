@@ -15,6 +15,15 @@ const buildProxyUrl = (url) => {
 const parseRSS = (xml) => {
   const parser = new DOMParser();
   const xmlDoc = parser.parseFromString(xml, 'text/xml');
+
+  // Обработка ошибки парсинга
+  const parseError = xmlDoc.querySelector('parsererror');
+  if (parseError) {
+    const error = new Error(parseError.textContent);
+    error.isParseError = true;
+    throw error;
+  }
+
   const posts = [...xmlDoc.querySelectorAll('item')].map((post) => ({
     title: post.querySelector('title').textContent,
     link: post.querySelector('link').textContent,
@@ -35,11 +44,10 @@ const loadRss = (url, state) => {
   const proxyUrl = buildProxyUrl(url);
   axios.get(proxyUrl)
     .then((response) => {
-      const { contents } = response.data;
-      if (!contents || response.data.status.http_code !== 200) {
+      if (response.status !== 200 || !response.data.contents) {
         throw new Error(`urlDownloadError: ${proxyUrl}`);
       }
-      const parsedContent = parseRSS(contents);
+      const parsedContent = parseRSS(response.data.contents);
       const {
         title, link, description, posts,
       } = parsedContent;
@@ -54,7 +62,7 @@ const loadRss = (url, state) => {
       state.form.processState = 'sent';
     })
     .catch((error) => {
-      state.form.error = error.code === 'ERR_NETWORK' ? 'networkError' : 'urlDownloadError';
+      state.form.error = error.isParseError ? 'urlDownloadError' : 'networkError';
       state.form.processState = 'error';
     });
 };
@@ -150,8 +158,7 @@ const initializeApp = async () => {
   const state = onChange(initialState, render(elements, initialState, i18nInstance));
 
   setupEventListeners(elements, state);
-  const updateRssHandler = updateRss(state);
-  updateRssHandler();
+  updateRss(state);
 };
 
 export default initializeApp;
