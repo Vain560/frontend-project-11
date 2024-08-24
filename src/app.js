@@ -6,36 +6,11 @@ import _ from 'lodash';
 import axios from 'axios';
 import resources from './locales/index.js';
 import render from './view.js';
+import parseRSS from './parser.js';
 
 const buildProxyUrl = (url) => {
   const proxy = 'https://allorigins.hexlet.app/get?disableCache=true&url=';
   return `${proxy}${encodeURIComponent(url)}`;
-};
-
-const parseRSS = (xml) => {
-  const parser = new DOMParser();
-  const xmlDoc = parser.parseFromString(xml, 'text/xml');
-
-  // Обработка ошибки парсинга
-  const parseError = xmlDoc.querySelector('parsererror');
-  if (parseError) {
-    const error = new Error(parseError.textContent);
-    error.isParseError = true;
-    throw error;
-  }
-
-  const posts = [...xmlDoc.querySelectorAll('item')].map((post) => ({
-    title: post.querySelector('title').textContent,
-    link: post.querySelector('link').textContent,
-    description: post.querySelector('description').textContent,
-  }));
-
-  return {
-    title: xmlDoc.querySelector('title').textContent,
-    link: xmlDoc.querySelector('link'),
-    description: xmlDoc.querySelector('description').textContent,
-    posts,
-  };
 };
 
 const mergePosts = (existingPosts, newPosts) => _.unionBy(existingPosts, newPosts, (post) => `${post.feedId}-${post.title}-${post.link}`);
@@ -67,38 +42,35 @@ const loadRss = (url, state) => {
     });
 };
 
-const fetchFeedData = (url) => {
-  const proxyUrl = buildProxyUrl(url);
-  return axios.get(proxyUrl)
-    .then((response) => {
-      const { contents } = response.data;
-      if (!contents || response.data.status.http_code !== 200) {
-        throw new Error(`urlDownloadError: ${proxyUrl}`);
-      }
-      return parseRSS(contents);
-    });
-};
-
-const handleFeedUpdate = (feed, state) => {
-  fetchFeedData(feed.url)
-    .then((parsedContent) => {
-      const { posts } = parsedContent;
-      const postsToAdd = posts.map((post) => ({ feedId: feed.id, id: _.uniqueId(), ...post }));
-      state.posts = mergePosts(state.posts, postsToAdd);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-};
-
 const updateRss = (state) => {
   const updateFeeds = () => {
-    state.feeds.forEach((feed) => {
-      if (state.form.processState === 'sending') return;
-      handleFeedUpdate(feed, state);
+    if (state.form.processState === 'sending') return;
+
+    const feedPromises = state.feeds.map((feed) => {
+      const proxyUrl = buildProxyUrl(feed.url);
+      return axios.get(proxyUrl)
+        .then((response) => {
+          const { contents } = response.data;
+          if (!contents || response.data.status.http_code !== 200) {
+            throw new Error(`urlDownloadError: ${proxyUrl}`);
+          }
+          return parseRSS(contents);
+        })
+        .then((parsedContent) => {
+          const { posts } = parsedContent;
+          const postsToAdd = posts.map((post) => ({ feedId: feed.id, id: _.uniqueId(), ...post }));
+          state.posts = mergePosts(state.posts, postsToAdd);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     });
-    setTimeout(updateFeeds, 5000);
+
+    Promise.all(feedPromises).then(() => {
+      setTimeout(updateFeeds, 5000);
+    });
   };
+
   updateFeeds();
 };
 
